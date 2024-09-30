@@ -1,0 +1,27 @@
+/* Footer Styles */
+.footer {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .social-icons a {
+    margin: 0 10px;
+  }
+  
+  .social-icons img {
+    width: 30px;  /* Adjust the size of your icons */
+    height: 30px;  /* Adjust the size of your icons */
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  .social-icons img:hover {
+    transform: scale(1.1);  /* Make the icon larger when hovered */
+  }
+  

@@ -1,0 +1,53 @@
+/* Main Content Styles */
+.main-content {
+    background-image: url('../../public/assets/Elegant_Background-2.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+  }
+  
+  .overlay {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+  .overlay h1 {
+    font-size: 48px;
+    color: #333;
+  }
+  
+  .overlay p {
+    font-size: 18px;
+    color: gray;
+    margin: 20px 0;
+  }
+  
+  .input-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .input-section input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .submit-button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
