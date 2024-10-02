@@ -5,6 +5,7 @@ const MainContent = () => {
   const [inputValue, setInputValue] = useState("");
   const [chatInfo, setChatInfo] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isMockMode, setIsMockMode] = useState(true); // Toggle between mock mode and API mode
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -12,17 +13,29 @@ const MainContent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
-    try {
-      const response = await fetch(`http://localhost:8000/chat_info/${inputValue}`);
-      if (response.ok) {
-        const data = await response.json();
-        setChatInfo(data);
-        setErrorMessage(""); // Clear error message if the request is successful
-      } else {
-        setErrorMessage("Failed to fetch chat info. Please try again.");
+
+    if (isMockMode) {
+      // Mock mode: Just show "Submitted successfully!" and skip API call
+      setChatInfo({
+        id: inputValue,
+        title: "Mock Title",
+        description: "Mock description: Submitted successfully!"
+      });
+      setErrorMessage("");
+    } else {
+      // Original code: API call to fetch chat info
+      try {
+        const response = await fetch(`http://localhost:8000/chat_info/${inputValue}`);
+        if (response.ok) {
+          const data = await response.json();
+          setChatInfo(data);
+          setErrorMessage(""); // Clear error message if the request is successful
+        } else {
+          setErrorMessage("Failed to fetch chat info. Please try again.");
+        }
+      } catch (error) {
+        setErrorMessage("An error occurred. Please try again.");
       }
-    } catch (error) {
-      setErrorMessage("An error occurred. Please try again.");
     }
   };
 
@@ -54,6 +67,11 @@ const MainContent = () => {
           </div>
         )}
       </div>
+
+      {/* Toggle button to switch between mock mode and real API mode */}
+      <button onClick={() => setIsMockMode(!isMockMode)}>
+        {isMockMode ? "Switch to API Mode" : "Switch to Mock Mode"}
+      </button>
     </div>
   );
 }
