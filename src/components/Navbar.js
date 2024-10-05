@@ -3,9 +3,10 @@ import '../styles/Navbar.css';
 import querystring from 'query-string';
 
 
-const client_id = '227e62927fd54c35a4fbcaef0b81936b'; // Add your Spotify client ID here
-const redirect_uri = 'http://localhost:3000/auth'; // Add your redirect URI
-const scope = 'user-read-private user-read-email'; // Define the scopes your app needs
+// Consts for Spotify API
+const client_id = '227e62927fd54c35a4fbcaef0b81936b';
+const redirect_uri = 'http://localhost:3000/auth';
+const scope = 'user-read-private user-read-email';
 
 
 function generateRandomString(length) {

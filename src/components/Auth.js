@@ -2,9 +2,11 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 
+
+const user_service = 'http://127.0.0.1:8000/login';
+
 function Callback() {
   const navigate = useNavigate();
-  console.log("TEST");
 
   useEffect(() => {
     // Parse the authorization code from the URL
@@ -13,15 +15,19 @@ function Callback() {
 
     if (authCode) {
       // Now that we have the auth code, send it to the integration service
-      fetch('/api/auth/spotify', {
+      fetch(user_service, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: authCode }),
+        body: JSON.stringify({ auth_code: authCode }),
       })
       .then(response => response.json())
       .then(data => {
-        // You might want to save tokens or navigate to a different page
-        navigate('/'); // Redirect back to home, or wherever you'd like
+        if (data.error) {
+          console.log("Login failed", data.error);
+        } else {
+          console.log("Login successful", data);
+          navigate('/'); // Go back to home for now
+        }
       });
     }
   }, [navigate]);
