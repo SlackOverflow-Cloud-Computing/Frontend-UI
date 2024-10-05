@@ -5,7 +5,7 @@ import querystring from 'query-string';
 
 // Consts for Spotify API
 const client_id = '227e62927fd54c35a4fbcaef0b81936b';
-const redirect_uri = 'http://localhost:3000/auth';
+const redirect_uri = 'http://localhost:3000/auth'; // This is also used in adapter for validation
 const scope = 'user-read-private user-read-email';
 
 
@@ -22,9 +22,7 @@ function generateRandomString(length) {
 
 const Navbar = () => {
   const handleSpotifyConnect = () => {
-    // Open Spotify's main website in a new tab
     const state = generateRandomString(16);
-
     const authURL = 'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
         response_type: 'code',
