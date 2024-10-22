@@ -1,36 +1,59 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 
 
-const user_service = 'http://127.0.0.1:8000/login';
+const login_service = 'http://127.0.0.1:8000/login'; // On composite
 
 const Auth = () => {
   const navigate = useNavigate();
+  const hasFetched = useRef(false);
+
 
   useEffect(() => {
+
+    // Prevent the effect from running twice in development due to Strict Mode
+    if (hasFetched.current) return;
+    hasFetched.current = true;
+
     // Parse the authorization code from the URL
     const queryParams = queryString.parse(window.location.search);
     const authCode = queryParams.code;
     if (!authCode) {
-      console.error("Authorization code missing");
+      console.error("Authorization code missing in redirect");
       return;
     }
 
-    // Now that we have the auth code, send it to the integration service
-    fetch(user_service, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ auth_code: authCode }),
-    });
+    // Define an async function to handle the fetch request
+    const sendLoginRequest = async () => {
+      try {
+        const response = await fetch(login_service, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ auth_code: authCode }),
+        });
 
-    console.log("Sent Login Request to Service");
-    navigate('/');
+        // Check if the response is not successful
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
 
+        const data = await response.json();
+        console.log("Successfully sent login request to integration service");
+        console.log("Response: ", data);
+
+        // If everything is successful, navigate to the next page
+        navigate('/'); // REPLACE WITH DASHBOARD
+      } catch (error) {
+        console.error("Failed to send login request:", error);
+        alert("There was an issue connecting to the login service. Please try again later.");
+        navigate('/');
+      }
+    };
+
+    // Now that we have the auth code, try to send it to the integration service
+    sendLoginRequest();
   }, [navigate]);
-
-  // I don't know how to fix the console error, looks like this is being called twice
-  // for some reason
 
   return <div>Handling Spotify authentication...</div>;
 }
