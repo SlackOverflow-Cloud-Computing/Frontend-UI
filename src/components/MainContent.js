@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/MainContent.css';
 
+const chat_info = process.env.REACT_APP_CHAT_INFO;
+
 const MainContent = () => {
   const [inputValue, setInputValue] = useState("");
   const [chatInfo, setChatInfo] = useState(null);
@@ -25,7 +27,7 @@ const MainContent = () => {
     } else {
       // Original code: API call to fetch chat info
       try {
-        const response = await fetch(`http://localhost:8000/chat_info/${inputValue}`);
+        const response = await fetch(chat_info + inputValue);
         if (response.ok) {
           const data = await response.json();
           setChatInfo(data);

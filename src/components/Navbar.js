@@ -2,10 +2,9 @@ import React from 'react';
 import '../styles/Navbar.css';
 import querystring from 'query-string';
 
-
 // Consts for Spotify API
-const client_id = '227e62927fd54c35a4fbcaef0b81936b';
-const redirect_uri = 'http://localhost:3000/auth'; // This is also used in adapter for validation
+const client_id = process.env.REACT_APP_CLIENT_ID;
+const redirect_uri = process.env.REACT_APP_REDIRECT_URI; // This is also used in adapter for validation
 const scope = 'user-read-private user-read-email';
 
 

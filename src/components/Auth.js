@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 
-
-const login_service = 'http://127.0.0.1:8000/login'; // On composite
+const login_service = process.env.REACT_APP_LOGIN_SERVICE;
 
 const Auth = () => {
   const navigate = useNavigate();
