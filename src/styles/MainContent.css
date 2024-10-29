@@ -1,53 +1,86 @@
-/* Main Content Styles */
+/* src/styles/MainContent.css */
+
 .main-content {
-    background-image: url('../../public/assets/Elegant_Background-2.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 70vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-  }
-  
-  .overlay {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 40px;
-    text-align: center;
-    border-radius: 10px;
-  }
-  
-  .overlay h1 {
-    font-size: 48px;
-    color: #333;
-  }
-  
-  .overlay p {
-    font-size: 18px;
-    color: gray;
-    margin: 20px 0;
-  }
-  
-  .input-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .input-section input {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  
-  .submit-button {
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: #000;
+  height: 100vh;
+  padding: 2rem;
+}
+
+.preloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000; /* Same background color as main content */
+  color: #fff;
+  font-size: 1.5rem;
+  z-index: 1000; /* Ensures the preloader is on top */
+}
+
+.content-container {
+  display: flex;
+  align-items: center;
+  max-width: 90vw; /* Constrain width to the viewport */
+}
+
+.title-container {
+  cursor: default;
+  flex: 1;
+  padding-right: 2rem;
+  text-align: left;
+}
+
+.title {
+  cursor: default;
+  font-size: 3.0rem; /* Make it larger */
+  font-style: italic; /* Make it italic */
+  margin: 0;
+}
+
+.line {
+  cursor: default;
+  display: block;
+}
+
+.highlighted-text {
+  cursor: default;
+  background: linear-gradient(90deg, blue, purple, red);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  transform:translateX(10%);
+  width: 1300px;
+  height: 900px; /* Adjust based on your design */
+  background-size: contain; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat;
+}
+
+.data-image {
+  max-width: 150%; /* Increase the size of the image */
+  height: auto;
+  transform: rotate(5deg) translateX(20px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* src/styles/MainContent.css */
+
+.title-container, .title, .line, .highlighted-text {
+  cursor: default; /* Force default cursor on each part */
+  user-select: none;
+}

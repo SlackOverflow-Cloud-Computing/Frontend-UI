@@ -37,21 +37,12 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="logo">
-        <img src="/assets/headphone.png" alt="Headphone Icon" className="headphone-icon" />
-      </div>
-      <ul className="nav-links">
-        <li><a href="#">Playlist Library</a></li>
-        <li><a href="#">Top Trends</a></li>
-        <li><a href="#">Contact</a></li>
-        <li>
-          <button className="spotify-button" onClick={handleSpotifyConnect}>
-            Connect to my Spotify
-          </button>
-        </li>
-      </ul>
+      <h1 className="logo">Subwoofer</h1>
+      <button className="spotify-button" onClick={handleSpotifyConnect}>
+        Sign In with Spotify
+      </button>
     </nav>
   );
-}
+};
 
 export default Navbar;

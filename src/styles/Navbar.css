@@ -1,42 +1,34 @@
-/* Navbar Styles */
+/* src/styles/Navbar.css */
+
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: white;
-  }
-  
-  .navbar .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .headphone-icon {
-    width: 40px; /* Adjust the size as necessary */
-    height: auto;
-  }
-  
-  .nav-links {
-    display: flex;
-    list-style: none;
-  }
-  
-  .nav-links li {
-    margin-right: 20px;
-  }
-  
-  .nav-links li a {
-    text-decoration: none;
-    color: black;
-  }
-  
-  .spotify-button {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2.5rem;
+  background-color: #1a1a1a; /* A subtle gray color to differentiate from black */
+}
+
+.logo {
+  cursor: default; /* Set cursor to default for the logo text */
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: bold;
+  user-select: none;
+}
+
+/* src/styles/Navbar.css */
+
+.spotify-button {
+  background: linear-gradient(90deg, #3F51B5, #673AB7);
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1.8rem; /* Adjust padding for rectangle shape */
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 8px; /* Smaller border-radius for rounded rectangle */
+  transition: background 0.3s;
+}
+
+.spotify-button:hover {
+  background: linear-gradient(90deg, #673AB7, #3F51B5);
+}
