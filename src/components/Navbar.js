@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Navbar.css';
 import querystring from 'query-string';
+import { Link } from 'react-router-dom';
 
 // Consts for Spotify API
 const client_id = process.env.REACT_APP_CLIENT_ID;
@@ -41,6 +42,7 @@ const Navbar = () => {
       <button className="spotify-button" onClick={handleSpotifyConnect}>
         Sign In with Spotify
       </button>
+      <Link to="/songs">Songs</Link>
     </nav>
   );
 };
