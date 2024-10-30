@@ -59,9 +59,14 @@ const Navbar = () => {
     navigate('/profile'); // Navigate to the profile page
   };
 
+  const goToSongs = () => {
+    navigate('/songs');
+  };
+
   return (
     <nav className="navbar">
       <h1 className="logo">Subwoofer</h1>
+      <button className="spotify-button" onClick={goToSongs}>Songs</button>
       {isLoggedIn ? (
         <>
           <button className="spotify-button" onClick={goToProfile}>
