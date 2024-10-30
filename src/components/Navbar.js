@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../styles/Navbar.css';
 import querystring from 'query-string';
+<<<<<<< HEAD
 import '../styles/Profile.css';
+=======
+import { Link } from 'react-router-dom';
+>>>>>>> 8f640a9497cbed077a58f067cae157651668f2e8
 
 // Consts for Spotify API
 const client_id = process.env.REACT_APP_CLIENT_ID;
