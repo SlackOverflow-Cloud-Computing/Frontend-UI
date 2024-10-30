@@ -42,7 +42,11 @@ const Navbar = () => {
       <button className="spotify-button" onClick={handleSpotifyConnect}>
         Sign In with Spotify
       </button>
-      <Link to="/songs">Songs</Link>
+      <Link to="/songs">
+        <button className="spotify-button">
+          Songs
+        </button>
+      </Link>
     </nav>
   );
 };
