@@ -1,3 +1,5 @@
+// src/components/Auth.js
+
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
@@ -7,10 +9,8 @@ const login_service = process.env.REACT_APP_LOGIN_SERVICE;
 const Auth = () => {
   const navigate = useNavigate();
   const hasFetched = useRef(false);
-
-
+  console.log("I got here!");
   useEffect(() => {
-
     // Prevent the effect from running twice in development due to Strict Mode
     if (hasFetched.current) return;
     hasFetched.current = true;
@@ -18,10 +18,13 @@ const Auth = () => {
     // Parse the authorization code from the URL
     const queryParams = queryString.parse(window.location.search);
     const authCode = queryParams.code;
+    
     if (!authCode) {
       console.error("Authorization code missing in redirect");
       return;
     }
+
+    console.log("Authorization code received:", authCode);
 
     // Define an async function to handle the fetch request
     const sendLoginRequest = async () => {
@@ -39,13 +42,27 @@ const Auth = () => {
 
         const data = await response.json();
         console.log("Successfully sent login request to integration service");
-        console.log("Response: ", data);
+        console.log("Response:", data);
 
-        // If everything is successful, navigate to the next page
-        navigate('/'); // REPLACE WITH DASHBOARD
+        if (data.id) {
+          localStorage.setItem('user_id', data.id);
+          console.log("User ID stored in localStorage:", data.id);
+        }
+
+        // Navigate to the next page if successful
+        window.history.replaceState(null, '', '/'); // Clear auth code from URL
+        navigate('/'); // Replace with dashboard or other path
       } catch (error) {
         console.error("Failed to send login request:", error);
         alert("There was an issue connecting to the login service. Please try again later.");
+
+        // Clear any login-related data and reset the URL to allow retry
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        // Clear the auth code from the URL and redirect back to home to allow retry
+        window.history.replaceState(null, '', '/');
+        console.log("I got here22!");
         navigate('/');
       }
     };

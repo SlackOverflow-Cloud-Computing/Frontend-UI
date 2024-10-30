@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import MainContent from './components/MainContent';
-import Footer from './components/Footer';
-import Auth from './components/Auth'
+import Profile from './components/Profile'; // Import Profile component
+import Auth from './components/Auth';
 import './styles/App.css';  // Import global styles
 
 function Home() {
@@ -22,7 +22,7 @@ function App() {
       <Routes>
         {/* Home route ("/") */}
         <Route path="/" element={<Home />} />
-
+        <Route path="/profile" element={<Profile />} />
         {/* Spotify OAuth callback route */}
         <Route path="/auth" element={<Auth />} />
 
@@ -32,4 +32,5 @@ function App() {
     </Router>
   );
 }
+
 export default App;
