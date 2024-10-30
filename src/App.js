@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import MainContent from './components/MainContent';
 import Profile from './components/Profile'; // Import Profile component
 import Auth from './components/Auth';
+import Songs from './components/Songs';
 import './styles/App.css';  // Import global styles
 
 function Home() {
@@ -25,7 +26,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         {/* Spotify OAuth callback route */}
         <Route path="/auth" element={<Auth />} />
-        
+        <Route path='/songs' element={<Songs />} />
         {/* Default 404 not found */}
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>

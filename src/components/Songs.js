@@ -13,7 +13,7 @@ const Songs = () => {
     const fetchSongs = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/songs?page=${currentPage}&limit=${songsPerPage}`
+          `http://localhost:8081/songs?page=${currentPage}&limit=${songsPerPage}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
