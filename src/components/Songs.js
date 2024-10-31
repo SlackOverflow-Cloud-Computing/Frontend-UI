@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/Songs.css';
 
+const song_service = process.env.REACT_APP_SONG_SERVICE;
+
 const Songs = () => {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +15,7 @@ const Songs = () => {
     const fetchSongs = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8081/songs?page=${currentPage}&limit=${songsPerPage}`
+          `${song_service}?page=${currentPage}&limit=${songsPerPage}`
         );
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
