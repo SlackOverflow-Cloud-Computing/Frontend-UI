@@ -18,6 +18,15 @@ function Home() {
   );
 }
 
+function Chatpage() {
+  return (
+    <div className="App">
+      <Navbar />
+      <Chatbot />
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
@@ -28,7 +37,7 @@ function App() {
         {/* Spotify OAuth callback route */}
         <Route path="/auth" element={<Auth />} />
         <Route path='/songs' element={<Songs />} />
-        <Route path="/chat" element={<Chatbot />} />
+        <Route path="/chat" element={<Chatpage />} />
         {/* Default 404 not found */}
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>

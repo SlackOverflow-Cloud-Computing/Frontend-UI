@@ -59,6 +59,10 @@ const Navbar = () => {
     navigate('/profile'); // Navigate to the profile page
   };
 
+  const goToChat = () => {
+    navigate('/chat');
+  };
+
   const goToSongs = () => {
     navigate('/songs');
   };
@@ -71,6 +75,9 @@ const Navbar = () => {
         <>
           <button className="spotify-button" onClick={goToProfile}>
             Profile
+          </button>
+          <button className="spotify-button" onClick={goToChat}>
+            Chat
           </button>
           <button className="spotify-button" onClick={handleLogout}>
             Log Out
