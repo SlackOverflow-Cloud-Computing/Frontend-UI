@@ -32,12 +32,14 @@ const Chatbot = () => {
 
     try {
       // TODO: Replace with your actual API endpoint
+      const userId = localStorage.getItem('user_id');
+      console.log("User ID:", userId);
       const response = await fetch('http://localhost:8002/recommend', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: inputMessage }),
+        body: JSON.stringify({ message: inputMessage, userId: userId }),
       });
 
       if (!response.ok) throw new Error('Failed to get response');

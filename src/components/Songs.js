@@ -14,9 +14,9 @@ const Songs = () => {
   useEffect(() => {
     const fetchSongs = async () => {
       try {
-        const response = await fetch(
-          `${song_service}?page=${currentPage}&limit=${songsPerPage}`
-        );
+        const url =`${song_service}?page=${currentPage}&limit=${songsPerPage}`
+        console.log("Fetching songs from:", url);
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -83,56 +83,128 @@ const Songs = () => {
   }
 
   return (
-    <div className="songs-container">
-      <h2>Available Songs</h2>
-      <div className="songs-grid">
-        {songs.map((song) => (
-          <div key={song.track_id} className="song-card">
-            <div className="song-info">
-              <h3>{song.track_name}</h3>
-              <p>Artist: {song.track_artist}</p>
-              <p>Album: {song.track_album_name}</p>
-              <p>Release Date: {song.track_album_release_date}</p>
-              <p>Popularity: {song.track_popularity}</p>
-            </div>
+    <div className="playlist-container">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="playlist-info">
+          <div className="playlist-cover">
+            {/* Replace with dynamic images */}
+            <img src="cover-image-url.jpg" alt="Playlist Cover" />
           </div>
-        ))}
-      </div>
-      
-      <div className="pagination">
-        <button 
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="pagination-button"
-        >
-          Previous
-        </button>
-        
-        <div className="page-numbers">
-          {getPageNumbers().map((pageNumber, index) => (
-            pageNumber === '...' ? (
-              <span key={`ellipsis-${index}`} className="ellipsis">...</span>
-            ) : (
-              <button
-                key={pageNumber}
-                onClick={() => paginate(pageNumber)}
-                className={`page-number ${currentPage === pageNumber ? 'active' : ''}`}
-              >
-                {pageNumber}
-              </button>
-            )
-          ))}
+          <h3>Playlist Name</h3>
+          <p>Songs to listen to while coding in the cloud</p>
+        </div>
+      </aside>
+
+      {/* Main Section */}
+      <div className="main-content">
+        {/* Top bar with settings */}
+        <div className="top-bar">
+          <h2>Available Songs</h2>
+          <button className="settings-button">Settings</button>
         </div>
 
-        <button 
-          onClick={() => paginate(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="pagination-button"
-        >
-          Next
-        </button>
+        {/* Song Table */}
+        <table className="songs-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Album</th>
+              <th>Date Added</th>
+              <th>BPM</th>
+              <th>Danceability</th>
+              <th>Length</th>
+            </tr>
+          </thead>
+          <tbody>
+            {songs.map((song, index) => (
+              <tr key={song.track_id}>
+                <td>{index + 1}</td>
+                <td>{song.track_name}</td>
+                <td>{song.track_album_name}</td>
+                <td>{song.track_album_release_date}</td>
+                <td>{song.bpm}</td>
+                <td>{song.danceability}%</td>
+                <td>{song.length}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="page-numbers">
+           {getPageNumbers().map((pageNumber, index) => (
+             pageNumber === '...' ? (
+               <span key={`ellipsis-${index}`} className="ellipsis">...</span>
+             ) : (
+               <button
+                 key={pageNumber}
+                 onClick={() => paginate(pageNumber)}
+                 className={`page-number ${currentPage === pageNumber ? 'active' : ''}`}
+               >
+                 {pageNumber}
+               </button>
+             )
+           ))}
+         </div>
+
+        {/* Graph Section */}
+        <div className="graph-container">
+          {/* Use a graph library or custom SVG for visualization */}
+          <p>Graph Placeholder</p>
+        </div>
       </div>
     </div>
+
+    // <div className="songs-container">
+    //   <h2>Available Songs</h2>
+    //   <div className="songs-grid">
+    //     {songs.map((song) => (
+    //       <div key={song.track_id} className="song-card">
+    //         <div className="song-info">
+    //           <h3>{song.track_name}</h3>
+    //           <p>Artist: {song.track_artist}</p>
+    //           <p>Album: {song.track_album_name}</p>
+    //           <p>Release Date: {song.track_album_release_date}</p>
+    //           <p>Popularity: {song.track_popularity}</p>
+    //         </div>
+    //       </div>
+    //     ))}
+    //   </div>
+      
+    //   <div className="pagination">
+    //     <button 
+    //       onClick={() => paginate(currentPage - 1)}
+    //       disabled={currentPage === 1}
+    //       className="pagination-button"
+    //     >
+    //       Previous
+    //     </button>
+        
+    //     <div className="page-numbers">
+    //       {getPageNumbers().map((pageNumber, index) => (
+    //         pageNumber === '...' ? (
+    //           <span key={`ellipsis-${index}`} className="ellipsis">...</span>
+    //         ) : (
+    //           <button
+    //             key={pageNumber}
+    //             onClick={() => paginate(pageNumber)}
+    //             className={`page-number ${currentPage === pageNumber ? 'active' : ''}`}
+    //           >
+    //             {pageNumber}
+    //           </button>
+    //         )
+    //       ))}
+    //     </div>
+
+    //     <button 
+    //       onClick={() => paginate(currentPage + 1)}
+    //       disabled={currentPage === totalPages}
+    //       className="pagination-button"
+    //     >
+    //       Next
+    //     </button>
+    //   </div>
+    // </div>
   );
 };
 

@@ -12,19 +12,22 @@
 }
 
 .chat-header {
-  padding: 20px;
-  background: #1db954; /* Keep Spotify-like green */
-  color: white;
+  background: linear-gradient(90deg, #3F51B5, #673AB7);
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1.8rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  transition: background 0.3s;
   border-radius: 12px 12px 0 0;
   text-align: center;
   font-size: 1.2rem;
   font-weight: bold;
-  text-transform: uppercase; /* Modern style */
 }
 
 .chat-header h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
 }
 
