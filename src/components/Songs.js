@@ -22,6 +22,7 @@ const Songs = () => {
         }
         const data = await response.json();
         setSongs(data.songs || data);
+        console.log(data);
         setTotalSongs(data.total || (data?.length || 0));
         setLoading(false);
       } catch (error) {
@@ -82,6 +83,17 @@ const Songs = () => {
     return <div className="songs-error">{error}</div>;
   }
 
+  function msToTime(ms) {
+      // Convert milliseconds to seconds
+      let seconds = Math.floor(ms / 1000);
+      
+      // Calculate minutes and remaining seconds
+      let minutes = Math.floor(seconds / 60);
+      seconds = seconds % 60;
+
+      // Format to "MM:SS"
+      return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+  }
   return (
     <div className="playlist-container">
       {/* Sidebar */}
@@ -89,7 +101,7 @@ const Songs = () => {
         <div className="playlist-info">
           <div className="playlist-cover">
             {/* Replace with dynamic images */}
-            <img src="cover-image-url.jpg" alt="Playlist Cover" />
+            <img src="/assets/cover-image-url.png" alt="Playlist Cover" />
           </div>
           <h3>Playlist Name</h3>
           <p>Songs to listen to while coding in the cloud</p>
@@ -97,12 +109,12 @@ const Songs = () => {
       </aside>
 
       {/* Main Section */}
-      <div className="main-content">
+      <div className="playlist-content">
         {/* Top bar with settings */}
-        <div className="top-bar">
+        {/* <div className="top-bar">
           <h2>Available Songs</h2>
           <button className="settings-button">Settings</button>
-        </div>
+        </div> */}
 
         {/* Song Table */}
         <table className="songs-table">
@@ -121,12 +133,12 @@ const Songs = () => {
             {songs.map((song, index) => (
               <tr key={song.track_id}>
                 <td>{index + 1}</td>
-                <td>{song.track_name}</td>
+                <td><a href={`https://open.spotify.com/track/${song.track_id}`} target="_blank" rel="noopener noreferrer">{song.track_name}</a></td>
                 <td>{song.track_album_name}</td>
                 <td>{song.track_album_release_date}</td>
-                <td>{song.bpm}</td>
+                <td>{song.tempo}</td>
                 <td>{song.danceability}%</td>
-                <td>{song.length}</td>
+                <td>{msToTime(song.duration_ms)}</td>
               </tr>
             ))}
           </tbody>
@@ -148,10 +160,9 @@ const Songs = () => {
          </div>
 
         {/* Graph Section */}
-        <div className="graph-container">
-          {/* Use a graph library or custom SVG for visualization */}
+        {/* <div className="graph-container">
           <p>Graph Placeholder</p>
-        </div>
+        </div> */}
       </div>
     </div>
 

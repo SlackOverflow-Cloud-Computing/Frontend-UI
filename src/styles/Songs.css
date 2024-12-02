@@ -15,21 +15,23 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
+.playlist-content {
+  width: 75%;
+  background: #181818;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
 .playlist-info {
   text-align: center;
 }
 
 .playlist-cover img {
-  width: 100%;
+  width: 80%;
+  height: 80%;
   border-radius: 8px;
   margin-bottom: 20px;
-}
-
-.main-content {
-  width: 75%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 .top-bar {
@@ -38,18 +40,19 @@
   align-items: center;
 }
 
-.settings-button {
-  background: #1db954;
-  color: #fff;
+.page-numbers {
+  display: flex;
+  gap: 10px;
+}
+
+.page-number {
+  background: #ffffff;
+  color: #292929;
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
 }
 
-.settings-button:hover {
-  background: #1ed760;
-}
 
 .songs-table {
   width: 100%;
@@ -80,4 +83,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Add these styles for the song links */
+.songs-table a {
+  color: white;
+  text-decoration: none; /* Remove underline */
+  transition: color 0.2s ease; /* Smooth color transition on hover */
+}
+
+.songs-table a:hover {
+  color: white; /* Lighter green on hover */
+  cursor: pointer;
+}
+
+/* Optional: Add a subtle underline only on hover */
+.songs-table a:hover {
+  border-bottom: 1px solid white;
+}
+
+/* If the link has been visited, keep it the same color */
+.songs-table a:visited {
+  color: white;
 }

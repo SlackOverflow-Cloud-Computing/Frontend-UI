@@ -27,6 +27,15 @@ function Chatpage() {
   );
 }
 
+function SongsPage() {
+  return (
+    <div className="App">
+      <Navbar />
+      <Songs />
+    </div>
+  );
+}
+
 function App() {
   return (
     <Router>
@@ -36,7 +45,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         {/* Spotify OAuth callback route */}
         <Route path="/auth" element={<Auth />} />
-        <Route path='/songs' element={<Songs />} />
+        <Route path='/songs' element={<SongsPage />} />
         <Route path="/chat" element={<Chatpage />} />
         {/* Default 404 not found */}
         <Route path="*" element={<div>404 Page Not Found</div>} />
