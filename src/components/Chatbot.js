@@ -38,7 +38,6 @@ const Chatbot = () => {
       // TODO: Replace with your actual API endpoint
       const userId = localStorage.getItem('user_id');
       console.log("User ID:", userId);
-      const response = await fetch('http://localhost:8002/recommendations', {
       const response = await fetch(chat_service, {
         method: 'POST',
         headers: {
@@ -63,7 +62,7 @@ const Chatbot = () => {
         content: data.content || "I'm sorry, I couldn't process that request.",
         timestamp: new Date().toLocaleTimeString()
       };
-      
+
       const songs = data.songs || [];
 
       setMessages(prev => [...prev, aiMessage]);
