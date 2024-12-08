@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
+import { jwtDecode } from 'jwt-decode';
 
 const login_service = process.env.REACT_APP_LOGIN_SERVICE;
 
@@ -41,9 +42,14 @@ const Auth = () => {
         console.log("Successfully sent login request to integration service");
         console.log("Response:", data);
 
-        if (data.id) {
-          localStorage.setItem('user_id', data.id);
-          console.log("User ID stored in localStorage:", data.id);
+        if (data) {
+          localStorage.setItem('jwt', data);
+
+          console.log(data);
+          const decoded = jwtDecode(data);
+          const userId = decoded.sub;
+          localStorage.setItem('user_id', userId);
+          console.log("User ID and JWT stored in localStorage:", userId);
         }
 
         // Navigate to the next page if successful
