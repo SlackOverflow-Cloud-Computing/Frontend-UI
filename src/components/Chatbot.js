@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../styles/Chatbot.css';
+import ReactMarkdown from 'react-markdown';
+
+const chat_service = process.env.REACT_APP_CHAT_SERVICE;
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
+  const [songs, setSongs] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -35,25 +39,35 @@ const Chatbot = () => {
       const userId = localStorage.getItem('user_id');
       console.log("User ID:", userId);
       const response = await fetch('http://localhost:8002/recommendations', {
+      const response = await fetch(chat_service, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: inputMessage, userId: userId }),
+        body: JSON.stringify({
+          user_id: userId,
+          chat_id: null,
+          query: inputMessage
+        }),
       });
 
       if (!response.ok) throw new Error('Failed to get response');
 
+      console.log("Response:", response);
       const data = await response.json();
 
       // Add AI response
       const aiMessage = {
         type: 'ai',
-        content: data.response || "I'm sorry, I couldn't process that request.",
+        content: data.content || "I'm sorry, I couldn't process that request.",
         timestamp: new Date().toLocaleTimeString()
       };
+      
+      const songs = data.songs || [];
+
       setMessages(prev => [...prev, aiMessage]);
+      setSongs(songs);
     } catch (error) {
       console.error('Error:', error);
       // Add error message
@@ -80,7 +94,13 @@ const Chatbot = () => {
             key={index}
             className={`message ${message.type}-message`}
           >
-            <div className="message-content">{message.content}</div>
+            <div className="message-content">
+              {message.type === 'ai' ? (
+                <ReactMarkdown>{message.content}</ReactMarkdown>
+              ) : (
+                message.content
+              )}
+            </div>
             <div className="message-timestamp">{message.timestamp}</div>
           </div>
         ))}
