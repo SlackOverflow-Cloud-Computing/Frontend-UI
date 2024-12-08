@@ -34,9 +34,10 @@ const Chatbot = () => {
       // TODO: Replace with your actual API endpoint
       const userId = localStorage.getItem('user_id');
       console.log("User ID:", userId);
-      const response = await fetch('http://localhost:8002/recommend', {
+      const response = await fetch('http://localhost:8002/recommendations', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message: inputMessage, userId: userId }),
@@ -45,7 +46,7 @@ const Chatbot = () => {
       if (!response.ok) throw new Error('Failed to get response');
 
       const data = await response.json();
-      
+
       // Add AI response
       const aiMessage = {
         type: 'ai',
@@ -72,11 +73,11 @@ const Chatbot = () => {
       <div className="chat-header">
         <h2>Music Assistant</h2>
       </div>
-      
+
       <div className="messages-container">
         {messages.map((message, index) => (
-          <div 
-            key={index} 
+          <div
+            key={index}
             className={`message ${message.type}-message`}
           >
             <div className="message-content">{message.content}</div>
@@ -111,4 +112,4 @@ const Chatbot = () => {
   );
 };
 
-export default Chatbot; 
+export default Chatbot;

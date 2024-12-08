@@ -16,10 +16,16 @@ const Songs = () => {
       try {
         const url =`${song_service}?page=${currentPage}&limit=${songsPerPage}`
         console.log("Fetching songs from:", url);
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          },
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
+        console.log("Response:", response);
         const data = await response.json();
         setSongs(data.songs || data);
         console.log(data);
@@ -42,7 +48,7 @@ const Songs = () => {
   const getPageNumbers = () => {
     const maxButtons = 5; // Maximum number of page buttons to show
     const pages = [];
-    
+
     if (totalPages <= maxButtons) {
       // If total pages is less than max buttons, show all pages
       for (let i = 1; i <= totalPages; i++) {
@@ -51,7 +57,7 @@ const Songs = () => {
     } else {
       // Always show first page
       pages.push(1);
-      
+
       if (currentPage <= 3) {
         // If current page is near the start
         pages.push(2, 3, 4, '...', totalPages);
@@ -63,7 +69,7 @@ const Songs = () => {
         pages.push('...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
       }
     }
-    
+
     return pages;
   };
 
@@ -86,7 +92,7 @@ const Songs = () => {
   function msToTime(ms) {
       // Convert milliseconds to seconds
       let seconds = Math.floor(ms / 1000);
-      
+
       // Calculate minutes and remaining seconds
       let minutes = Math.floor(seconds / 60);
       seconds = seconds % 60;
@@ -181,16 +187,16 @@ const Songs = () => {
     //       </div>
     //     ))}
     //   </div>
-      
+
     //   <div className="pagination">
-    //     <button 
+    //     <button
     //       onClick={() => paginate(currentPage - 1)}
     //       disabled={currentPage === 1}
     //       className="pagination-button"
     //     >
     //       Previous
     //     </button>
-        
+
     //     <div className="page-numbers">
     //       {getPageNumbers().map((pageNumber, index) => (
     //         pageNumber === '...' ? (
@@ -207,7 +213,7 @@ const Songs = () => {
     //       ))}
     //     </div>
 
-    //     <button 
+    //     <button
     //       onClick={() => paginate(currentPage + 1)}
     //       disabled={currentPage === totalPages}
     //       className="pagination-button"
