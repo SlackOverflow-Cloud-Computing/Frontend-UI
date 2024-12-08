@@ -22,9 +22,9 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         console.log("Fetching user data for user ID:", userId);
-        
+
         // Make the fetch call to the user info endpoint
-        const response = await fetch(`http://127.0.0.1:8088/user_info/${userId}`);
+        const response = await fetch(`http://127.0.0.1:8088/user/${userId}`);
 
         if (!response.ok) {
           throw new Error(`Failed to fetch user data. Status: ${response.status}`);

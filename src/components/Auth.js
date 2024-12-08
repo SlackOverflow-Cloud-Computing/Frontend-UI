@@ -9,7 +9,6 @@ const login_service = process.env.REACT_APP_LOGIN_SERVICE;
 const Auth = () => {
   const navigate = useNavigate();
   const hasFetched = useRef(false);
-  console.log("I got here!");
   useEffect(() => {
     // Prevent the effect from running twice in development due to Strict Mode
     if (hasFetched.current) return;
@@ -18,13 +17,11 @@ const Auth = () => {
     // Parse the authorization code from the URL
     const queryParams = queryString.parse(window.location.search);
     const authCode = queryParams.code;
-    
+
     if (!authCode) {
       console.error("Authorization code missing in redirect");
       return;
     }
-
-    console.log("Authorization code received:", authCode);
 
     // Define an async function to handle the fetch request
     const sendLoginRequest = async () => {
@@ -59,7 +56,7 @@ const Auth = () => {
         // Clear any login-related data and reset the URL to allow retry
         localStorage.clear();
         sessionStorage.clear();
-        
+
         // Clear the auth code from the URL and redirect back to home to allow retry
         window.history.replaceState(null, '', '/');
         console.log("I got here22!");
