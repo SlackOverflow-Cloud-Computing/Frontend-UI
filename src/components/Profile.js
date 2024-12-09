@@ -24,7 +24,7 @@ const Profile = () => {
         console.log("Fetching user data for user ID:", userId);
 
         // Make the fetch call to the user info endpoint
-        const response = await fetch(`http://127.0.0.1:8088/users/${userId}`, {
+        const response = await fetch(`http://127.0.0.1:8002/users/${userId}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwt')}`,

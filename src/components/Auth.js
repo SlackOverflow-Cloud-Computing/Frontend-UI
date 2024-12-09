@@ -43,19 +43,13 @@ const Auth = () => {
         console.log(data);
 
         if (data) {
-          localStorage.setItem('jwt', data.jwt);
-          localStorage.setItem('user_id', data.id);
-          // const decoded = jwtDecode(data);
-          // const userId = decoded.sub;
-          // localStorage.setItem('user_id', userId);
-          // console.log("User ID and JWT stored in localStorage:", userId);
+          localStorage.setItem('jwt', data);
+          const decoded = jwtDecode(data);
+          const userId = decoded.sub;
+          localStorage.setItem('user_id', userId);
+          console.log("User ID and JWT stored in localStorage:", userId, data);
         }
-        // if (data.id) {
-        //   localStorage.setItem('user_id', data.id);
-        //   localStorage.setItem('access_token', data.jwt);
-        //   console.log("User ID stored in localStorage:", data.id);
 
-        // }
         // Navigate to the next page if successful
         window.history.replaceState(null, '', '/'); // Clear auth code from URL
         navigate('/'); // Replace with dashboard or other path
