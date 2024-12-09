@@ -1,108 +1,181 @@
-.playlist-container {
+/* General Page Styling */
+.songs-page {
   display: flex;
-  background: #121212;
-  color: #fff;
   height: 100vh;
+  background-color: #101010; /* Darker background */
+  color: #f1f1f1; /* Softer white for text */
+  overflow-y: hidden;
+}
+
+/* Chatbot Section Styling */
+.chatbot-section {
+  flex: 1;
+  background-color: #1b1b1b; /* Neutral dark background */
   padding: 20px;
-  gap: 20px;
-}
-
-.sidebar {
-  width: 25%;
-  background: #181818;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.playlist-content {
-  width: 75%;
-  background: #181818;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.playlist-info {
-  text-align: center;
-}
-
-.playlist-cover img {
-  width: 80%;
-  height: 80%;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.top-bar {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  border-right: 1px solid #333;
+}
+
+.chatbot-header {
+  font-size: 20px;
+  font-weight: bold;
+  color: #101010;
+  background-color: #fff; /* White background */
+  padding: 10px;
+  border-radius: 20px;
+  display: flex;
   align-items: center;
-}
-
-.page-numbers {
-  display: flex;
+  justify-content: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   gap: 10px;
+  margin-bottom: 10px; /* Adds space between title and chatbot container */
 }
 
-.page-number {
-  background: #ffffff;
-  color: #292929;
-  padding: 10px 20px;
+.chatbot-header .emoji {
+  font-size: 24px; /* Bot emoji size */
+}
+
+/* Chatbot Container */
+.chatbot-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #262626; /* Subtle dark background */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Single background */
+  overflow-y: auto;
+}
+
+/* Input Styling */
+.chatbot-container input {
   border: none;
-  border-radius: 8px;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #333;
+  color: #fff;
 }
 
+.chatbot-container input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.chatbot-container button {
+  border: none;
+  border-radius: 20px;
+  padding: 10px 15px;
+  background-color: #444;
+  color: #f1f1f1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chatbot-container button:hover {
+  background-color: #555;
+}
+
+/* Songs Section Styling */
+.songs-section {
+  flex: 3;
+  padding: 20px;
+  overflow-y: auto;
+}
 
 .songs-table {
   width: 100%;
   border-collapse: collapse;
-  background: #181818;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
+  background: #1e1e1e; /* Modern dark background for table */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.songs-table th, .songs-table td {
-  padding: 12px 16px;
+.songs-table th,
+.songs-table td {
+  padding: 15px;
   text-align: left;
+  font-size: 14px;
 }
 
 .songs-table th {
-  background: #1f1f1f;
+  background: #333; /* Slight contrast for headers */
+  color: #ccc; /* Softer white for headers */
+  text-transform: uppercase;
+}
+
+.songs-table td {
+  color: #f1f1f1; /* Light text for content */
 }
 
 .songs-table tbody tr:nth-child(even) {
-  background: #1a1a1a;
+  background: #292929; /* Subtle alternating row color */
 }
 
-.graph-container {
-  background: #181818;
-  padding: 20px;
-  border-radius: 8px;
-  height: 200px;
+.songs-table tbody tr:hover {
+  background: #383838; /* Highlight row on hover */
+}
+
+/* Updated Links */
+.songs-table a {
+  color: #4caf50; /* Fresh green for links */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.songs-table a:hover {
+  color: #66bb6a; /* Lighter green on hover */
+}
+
+/* Pagination */
+.pagination {
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
 }
 
-/* Add these styles for the song links */
-.songs-table a {
-  color: white;
-  text-decoration: none; /* Remove underline */
-  transition: color 0.2s ease; /* Smooth color transition on hover */
-}
-
-.songs-table a:hover {
-  color: white; /* Lighter green on hover */
+.pagination button {
+  background: #444;
+  color: #f1f1f1;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-/* Optional: Add a subtle underline only on hover */
-.songs-table a:hover {
-  border-bottom: 1px solid white;
+.pagination button.active {
+  background: #4caf50; /* Highlight active page */
+  font-weight: bold;
 }
 
-/* If the link has been visited, keep it the same color */
-.songs-table a:visited {
-  color: white;
+.pagination button:hover {
+  background: #555;
+}
+
+.pagination span {
+  color: #ccc;
+  padding: 10px 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .songs-page {
+    flex-direction: column;
+  }
+
+  .chatbot-section {
+    width: 100%;
+    margin-bottom: 20px;
+    border-right: none;
+  }
+
+  .songs-section {
+    width: 100%;
+  }
 }

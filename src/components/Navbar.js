@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
 import querystring from 'query-string';
 import '../styles/Profile.css';
@@ -20,7 +20,7 @@ function generateRandomString(length) {
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   // Check login state on component mount
   useEffect(() => {
@@ -45,26 +45,25 @@ const Navbar = () => {
 
   const handleLogout = () => {
     // Clear user data from localStorage
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('access_token'); // Remove any other auth-related data
+    localStorage.clear();
 
     // Update the login state
     setIsLoggedIn(false);
 
-    // Optionally, redirect to the main page or reload
+    // Redirect to home page
     window.location.href = '/';
   };
 
   const goToProfile = () => {
-    navigate('/profile'); // Navigate to the profile page
-  };
-
-  const goToChat = () => {
-    navigate('/chat');
+    navigate('/profile');
   };
 
   const goToSongs = () => {
     navigate('/songs');
+  };
+
+  const goToMyPlaylist = () => {
+    navigate('/my-playlist');
   };
 
   return (
@@ -76,8 +75,8 @@ const Navbar = () => {
           <button className="spotify-button" onClick={goToProfile}>
             Profile
           </button>
-          <button className="spotify-button" onClick={goToChat}>
-            Chat
+          <button className="spotify-button" onClick={goToMyPlaylist}>
+            My Playlist
           </button>
           <button className="spotify-button" onClick={handleLogout}>
             Log Out

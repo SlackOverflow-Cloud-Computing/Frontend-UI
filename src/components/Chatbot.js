@@ -30,18 +30,17 @@ const Chatbot = () => {
       content: inputMessage,
       timestamp: new Date().toLocaleTimeString()
     };
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInputMessage('');
     setIsLoading(true);
 
     try {
-      // TODO: Replace with your actual API endpoint
       const userId = localStorage.getItem('user_id');
       console.log("User ID:", userId);
       const response = await fetch(chat_service, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -61,12 +60,11 @@ const Chatbot = () => {
       const aiMessage = {
         type: 'ai',
         content: data.content || "I'm sorry, I couldn't process that request.",
-        timestamp: new Date().toLocaleTimeString()
+        timestamp: new Date().toLocaleTimeString(),
       };
 
       const songs = data.songs || [];
-
-      setMessages(prev => [...prev, aiMessage]);
+      setMessages((prev) => [...prev, aiMessage]);
       setSongs(songs);
     } catch (error) {
       console.error('Error:', error);
@@ -74,9 +72,9 @@ const Chatbot = () => {
       const errorMessage = {
         type: 'ai',
         content: "Sorry, I'm having trouble connecting right now.",
-        timestamp: new Date().toLocaleTimeString()
+        timestamp: new Date().toLocaleTimeString(),
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -84,16 +82,14 @@ const Chatbot = () => {
 
   return (
     <div className="chatbot-container">
-      <div className="chat-header">
-        <h2>Music Assistant</h2>
+      {/* Title Inside the Chatbot Container */}
+      <div className="chatbot-title">
+        <span className="emoji">🤖</span> Music Assistant
       </div>
 
       <div className="messages-container">
         {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`message ${message.type}-message`}
-          >
+          <div key={index} className={`message ${message.type}-message`}>
             <div className="message-content">
               {message.type === 'ai' ? (
                 <ReactMarkdown>{message.content}</ReactMarkdown>

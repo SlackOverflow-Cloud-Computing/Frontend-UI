@@ -1,34 +1,31 @@
 .chatbot-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 100px);
-  max-width: 800px;
-  margin: 20px auto;
+  height: 100%;
   background: #121212; /* Match dark theme background */
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   color: #ffffff; /* Ensure consistent font color for dark theme */
   overflow: hidden;
 }
 
-.chat-header {
-  background: linear-gradient(90deg, #3F51B5, #673AB7);
-  color: #fff;
-  border: none;
-  padding: 0.9rem 1.8rem;
-  font-size: 1.2rem;
-  border-radius: 8px;
-  transition: background 0.3s;
-  border-radius: 12px 12px 0 0;
-  text-align: center;
-  font-size: 1.2rem;
+.chatbot-title {
+  background: #ffffff; /* White background for title */
+  color: #101010;
+  font-size: 20px;
   font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.chat-header h2 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: bold;
+.chatbot-title .emoji {
+  font-size: 24px; /* Bot emoji size */
 }
 
 .messages-container {
@@ -48,7 +45,7 @@
   margin: 4px 0;
   font-size: 0.9rem;
   line-height: 1.4;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .user-message {
@@ -59,45 +56,30 @@
 
 .ai-message {
   align-self: flex-start;
-  background-color: #282828; /* Consistent with dark theme */
+  background-color: #282828;
   color: #e0e0e0;
-}
-
-.message-content {
-  margin-bottom: 4px;
-  line-height: 1.5;
-}
-
-.ai-message .message-content {
-  white-space: pre-wrap;
-}
-
-.message-timestamp {
-  font-size: 0.75rem;
-  opacity: 0.7;
 }
 
 .input-form {
   display: flex;
   gap: 10px;
   padding: 20px;
-  background: #282828; /* Match with messages */
+  background: #282828;
   border-radius: 0 0 12px 12px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Top shadow for elevation */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .input-form input {
   flex-grow: 1;
   padding: 12px;
-  border: 1px solid #333; /* Darker border for theme consistency */
+  border: 1px solid #333;
   border-radius: 6px;
-  font-size: 1rem;
-  background: #121212; /* Match overall dark theme */
+  background: #121212;
   color: #fff;
 }
 
 .input-form input::placeholder {
-  color: #888; /* Subtle placeholder text for readability */
+  color: #888;
 }
 
 .input-form button {
@@ -113,90 +95,10 @@
 
 .input-form button:hover:not(:disabled) {
   background: #1ed760;
-  transform: translateY(-2px); /* Add hover animation */
+  transform: translateY(-2px);
 }
 
 .input-form button:disabled {
   background: #555;
   cursor: not-allowed;
-}
-
-.typing-indicator {
-  display: flex;
-  gap: 4px;
-  padding: 12px 16px;
-  align-self: flex-start; /* Ensure alignment consistency */
-}
-
-.typing-indicator span {
-  width: 8px;
-  height: 8px;
-  background: #1db954; /* Match primary green color */
-  border-radius: 50%;
-  animation: bounce 1.4s infinite ease-in-out;
-}
-
-.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
-.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
-
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
-}
-
-/* Style markdown elements */
-.message-content p {
-  margin: 0 0 1em 0;
-}
-
-.message-content p:last-child {
-  margin-bottom: 0;
-}
-
-.message-content code {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-family: monospace;
-}
-
-.message-content pre {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 12px;
-  border-radius: 6px;
-  overflow-x: auto;
-  margin: 8px 0;
-}
-
-.message-content pre code {
-  background-color: transparent;
-  padding: 0;
-}
-
-.message-content ul, 
-.message-content ol {
-  margin: 8px 0;
-  padding-left: 20px;
-}
-
-.message-content a {
-  color: #1db954;
-  text-decoration: none;
-}
-
-.message-content a:hover {
-  text-decoration: underline;
-}
-
-.message-content blockquote {
-  border-left: 4px solid #1db954;
-  margin: 8px 0;
-  padding-left: 16px;
-  color: #666;
-}
-
-/* Ensure code blocks don't overflow */
-.message-content * {
-  max-width: 100%;
-  overflow-wrap: break-word;
 }
