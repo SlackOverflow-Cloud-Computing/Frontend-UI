@@ -47,7 +47,8 @@ const Chatbot = () => {
         body: JSON.stringify({
           user_id: userId,
           chat_id: null,
-          query: inputMessage
+          query: inputMessage,
+          token: localStorage.getItem('access_token'),
         }),
       });
 
