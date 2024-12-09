@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // No need to import Link
 import '../styles/Navbar.css';
 import querystring from 'query-string';
 import '../styles/Profile.css';
@@ -30,13 +30,14 @@ const Navbar = () => {
 
   const handleSpotifyConnect = () => {
     const state = generateRandomString(16);
-    const authURL = 'https://accounts.spotify.com/authorize?' +
+    const authURL =
+      'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
         response_type: 'code',
         client_id: client_id,
         scope: scope,
         redirect_uri: redirect_uri,
-        state: state
+        state: state,
       });
 
     // Redirect the user to the Spotify login page
@@ -63,13 +64,22 @@ const Navbar = () => {
   };
 
   const goToMyPlaylist = () => {
-    navigate('/my-playlist');
+    navigate('/my-playlist'); // Matches the route defined in App.js
+  };
+
+  const goToHome = () => {
+    navigate('/'); // Redirect to the home page
   };
 
   return (
     <nav className="navbar">
-      <h1 className="logo">Subwoofer</h1>
-      <button className="spotify-button" onClick={goToSongs}>Songs</button>
+      {/* Revert Subwoofer to original style */}
+      <h1 className="logo" onClick={goToHome}>
+        Subwoofer
+      </h1>
+      <button className="spotify-button" onClick={goToSongs}>
+        Songs
+      </button>
       {isLoggedIn ? (
         <>
           <button className="spotify-button" onClick={goToProfile}>
