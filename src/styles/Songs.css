@@ -130,19 +130,18 @@
   color: #66bb6a; /* Lighter green on hover */
 }
 
-/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  gap: 10px;
+  gap: 5px;
 }
 
 .pagination button {
   background: #444;
   color: #f1f1f1;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 12px;
   border-radius: 5px;
   font-size: 14px;
   cursor: pointer;
@@ -160,8 +159,10 @@
 
 .pagination span {
   color: #ccc;
-  padding: 10px 15px;
+  padding: 8px 12px;
+  font-size: 14px;
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -178,4 +179,23 @@
   .songs-section {
     width: 100%;
   }
+}
+.add-button {
+  background-color: #1db954; /* Spotify green */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #1ed760; /* Slightly lighter green for hover effect */
+}
+
+.add-button:disabled {
+  background-color: #555; /* Gray for disabled state */
+  cursor: not-allowed;
 }
