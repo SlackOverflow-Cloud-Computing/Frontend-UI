@@ -11,7 +11,6 @@ const Auth = () => {
   const navigate = useNavigate();
   const hasFetched = useRef(false);
   useEffect(() => {
-    // Prevent the effect from running twice in development due to Strict Mode
     if (hasFetched.current) return;
     hasFetched.current = true;
 
