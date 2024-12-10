@@ -47,7 +47,7 @@ const Chatbot = () => {
           user_id: userId,
           chat_id: null,
           query: inputMessage,
-          token: localStorage.getItem('access_token'),
+          token: localStorage.getItem('jwt'),
         }),
       });
 
