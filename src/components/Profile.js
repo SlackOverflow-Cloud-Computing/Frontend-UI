@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Profile.css';
 
+const composite_service = process.env.REACT_APP_COMPOSITE_SERVICE;
+
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
@@ -24,7 +26,7 @@ const Profile = () => {
         console.log("Fetching user data for user ID:", userId);
 
         // Make the fetch call to the user info endpoint
-        const response = await fetch(`http://127.0.0.1:8002/users/${userId}`, {
+        const response = await fetch(`${composite_service}/users/${userId}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwt')}`,
