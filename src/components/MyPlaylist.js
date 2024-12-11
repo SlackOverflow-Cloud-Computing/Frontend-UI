@@ -74,6 +74,7 @@ const MyPlaylist = () => {
               <tr>
                 <th>#</th>
                 <th>Title</th>
+                <th>Artist</th>
                 <th>Album</th>
                 <th>Date Released</th>
                 <th>Remove</th>
@@ -93,6 +94,7 @@ const MyPlaylist = () => {
                       {song.track_name}
                     </a>
                   </td>
+                  <td>{song.track_artist}</td>
                   <td>{song.track_album_name}</td>
                   <td>{song.track_album_release_date}</td>
                   <td>
