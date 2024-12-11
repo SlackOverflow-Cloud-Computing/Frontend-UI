@@ -86,7 +86,7 @@ const Songs = () => {
   return (
     <div className="songs-page">
       <div className="chatbot-section">
-        <Chatbot />
+        <Chatbot setSongs={setSongs} setTotalSongs={setTotalSongs} />
       </div>
 
       <div className="songs-section">
@@ -95,6 +95,7 @@ const Songs = () => {
             <tr>
               <th>#</th>
               <th>Title</th>
+              <th>Artist</th>
               <th>Album</th>
               <th>Date Released</th>
               <th>BPM</th>
@@ -116,10 +117,11 @@ const Songs = () => {
                     {song.track_name}
                   </a>
                 </td>
+                <td>{song.track_artist}</td>
                 <td>{song.track_album_name}</td>
                 <td>{song.track_album_release_date}</td>
-                <td>{song.tempo}</td>
-                <td>{song.danceability}%</td>
+                <td>{Math.round(song.tempo)}</td>
+                <td>{Math.round(song.danceability*100)}%</td>
                 <td>{msToTime(song.duration_ms)}</td>
                 <td>
                   <button

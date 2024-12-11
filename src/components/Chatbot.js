@@ -4,9 +4,8 @@ import ReactMarkdown from 'react-markdown';
 
 const chat_service = process.env.REACT_APP_CHAT_SERVICE;
 
-const Chatbot = () => {
+const Chatbot = ({setSongs, setTotalSongs}) => {
   const [messages, setMessages] = useState([]);
-  const [songs, setSongs] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -65,7 +64,10 @@ const Chatbot = () => {
 
       const songs = data.songs || [];
       setMessages((prev) => [...prev, aiMessage]);
-      setSongs(songs);
+      if (songs.length > 0) {
+        setSongs(songs);
+        setTotalSongs(songs.length);
+      }
     } catch (error) {
       console.error('Error:', error);
       // Add error message
