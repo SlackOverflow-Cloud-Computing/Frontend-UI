@@ -20,6 +20,13 @@ const Songs = () => {
   const [songsPerPage] = useState(12);
   const [totalSongs, setTotalSongs] = useState(0);
   const [addedSongs, setAddedSongs] = useState(new Set());
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check authentication status
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    setIsAuthenticated(!!jwt);
+  }, []);
 
   // Fetch songs from API
   useEffect(() => {
@@ -43,6 +50,11 @@ const Songs = () => {
   }, [currentPage, songsPerPage]);
 
   const handleAddToPlaylist = (song) => {
+    if (!isAuthenticated) {
+      showAlert('Please sign in to manage playlists', 'error');
+      return;
+    }
+
     if (addedSongs.has(song.track_id)) {
       // Remove from playlist
       const existingPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
@@ -126,7 +138,7 @@ const Songs = () => {
               <th>BPM</th>
               <th>Danceability</th>
               <th>Length</th>
-              <th>Add</th>
+              {isAuthenticated ? <th>Add</th> : <th></th>}
             </tr>
           </thead>
           <tbody>
@@ -148,14 +160,16 @@ const Songs = () => {
                 <td>{Math.round(song.tempo)}</td>
                 <td>{Math.round(song.danceability*100)}%</td>
                 <td>{msToTime(song.duration_ms)}</td>
-                <td>
-                  <button
-                    onClick={() => handleAddToPlaylist(song)}
-                    className={`toggle-button ${addedSongs.has(song.track_id) ? 'remove' : 'add'}`}
-                  >
-                    {addedSongs.has(song.track_id) ? 'Remove' : 'Add to Playlist'}
-                  </button>
-                </td>
+                {isAuthenticated && (
+                  <td>
+                    <button
+                      onClick={() => handleAddToPlaylist(song)}
+                      className={`toggle-button ${addedSongs.has(song.track_id) ? 'remove' : 'add'}`}
+                    >
+                      {addedSongs.has(song.track_id) ? 'Remove' : 'Add to Playlist'}
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
