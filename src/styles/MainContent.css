@@ -84,3 +84,31 @@
   cursor: default; /* Force default cursor on each part */
   user-select: none;
 }
+
+.about-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background-color: #1db954;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+.about-button:hover {
+  background-color: #1ed760;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.about-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}

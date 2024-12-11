@@ -13,27 +13,35 @@ const MainContent = () => {
     image.onerror = () => setIsLoading(false);
   }, []);
 
+  const handleAboutClick = () => {
+    window.location.href = 'http://slackoverflow-bucket.s3-website-us-east-1.amazonaws.com/';
+  };
+
   return (
     <div className="main-content">
       {isLoading ? (
         <div className="preloader">Loading...</div>
       ) : (
-        <div className="content-container">
-          <div className="title-container">
-            <h2 className="title">
-              <span className="line">Tools to create</span>
-              <span className="line highlighted-text">better playlists</span>
-            </h2>
-          </div>
+        <>
+          <div className="content-container">
+            <div className="title-container">
+              <h2 className="title">
+                <span className="line">Tools to create</span>
+                <span className="line highlighted-text">better playlists</span>
+              </h2>
+            </div>
 
-          {/* Apply the background image dynamically */}
-          <div
-            className="image-container"
-            style={{
-              backgroundImage: `url(${process.env.PUBLIC_URL}/playlist.png)`,
-            }}
-          ></div>
-        </div>
+            <div
+              className="image-container"
+              style={{
+                backgroundImage: `url(${process.env.PUBLIC_URL}/playlist.png)`,
+              }}
+            ></div>
+          </div>
+          <button className="about-button" onClick={handleAboutClick}>
+            About Us
+          </button>
+        </>
       )}
     </div>
   );
