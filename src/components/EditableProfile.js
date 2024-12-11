@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/EditableProfile.css';
 
+const composite_service = process.env.REACT_APP_COMPOSITE_SERVICE;
+
 const EditableProfile = () => {
   const [userData, setUserData] = useState(null);
   const [editableData, setEditableData] = useState({
@@ -9,30 +11,47 @@ const EditableProfile = () => {
     favoriteSong: '',
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch user data on mount
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const storedUserData = JSON.parse(localStorage.getItem('userData')) || {
-        username: 'Tsz Yat Wong',
-        email: 'tw3047@columbia.edu',
-        country: 'US',
-        created_at: '2024-12-10T22:19:43',
-      };
-      setUserData(storedUserData);
+  const userId = localStorage.getItem('user_id');
 
-      const storedEditableData = JSON.parse(localStorage.getItem('editableProfileData')) || {
-        motto: 'Always learning.',
-        favoriteSong: 'Imagine - John Lennon',
-      };
-      setEditableData(storedEditableData);
+  useEffect(() => {
+    if (!userId) {
+      setError("User ID not found in localStorage");
+      return;
+    }
+
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`${composite_service}/users/${userId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch user data. Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setUserData(data);
+
+        // Load editable data from localStorage or use defaults
+        const storedEditableData = JSON.parse(localStorage.getItem('editableProfileData')) || {
+          motto: 'Always learning.',
+          favoriteSong: 'Imagine - John Lennon',
+        };
+        setEditableData(storedEditableData);
+      } catch (err) {
+        setError(err.message);
+      }
     };
 
     fetchUserData();
-  }, []);
+  }, [userId]);
 
-  // Handle changes in editable fields
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditableData({ ...editableData, [name]: value });
@@ -49,6 +68,10 @@ const EditableProfile = () => {
     setIsEditing(false);
   };
 
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
+
   if (!userData) {
     return <div className="loading-message">Loading profile...</div>;
   }
@@ -62,14 +85,14 @@ const EditableProfile = () => {
     <div className="profile-container">
       {/* Sidebar */}
       <aside className="sidebar">
-        <button
-            className="arrow-button"
-            onClick={() => navigate('/')}
-            aria-label="Return to main page"
-        >
-            ←
-        </button>
-        <h1 className="sidebar-title">Tsz Yat Wong</h1>
+  <button
+    className="arrow-button"
+    onClick={() => navigate('/')}
+    aria-label="Return to main page"
+  >
+    ←
+  </button>
+  <h1 className="sidebar-title">{userData?.username|| 'Profile'}</h1>
 </aside>
 
 
