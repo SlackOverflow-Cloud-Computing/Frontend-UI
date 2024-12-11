@@ -78,7 +78,7 @@ const Navbar = () => {
         Subwoofer
       </h1>
       <button className="spotify-button" onClick={goToSongs}>
-        Songs
+        Music Assistant
       </button>
       {isLoggedIn ? (
         <>

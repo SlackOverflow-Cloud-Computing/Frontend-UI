@@ -1,56 +1,69 @@
 /* Main container for the profile layout */
 .profile-container {
-    display: flex;
-    background-color: #000; /* Background color matching Figma */
-    color: #fff;
-    height: 100vh;
-  }
-  
-  /* Sidebar styling */
-  .sidebar {
-    width: 25%;
-    padding: 20px;
-    background-color: #111; /* Darker background for sidebar */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .username {
-    font-size: 2rem;
-    font-style: italic;
-    margin-bottom: 20px;
-  }
-  
-  /* Sidebar links */
-  .sidebar nav ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar nav ul li {
-    margin: 10px 0;
-  }
-  
-  .sidebar nav ul li a {
-    color: #fff;
-    text-decoration: underline;
-    font-size: 1.1rem;
-    font-weight: 300;
-  }
-  
-  /* Main profile information area */
-  .profile-info {
-    width: 75%;
-    padding: 20px;
-    background-color: #222; /* Dark background for main content */
-    margin-left: 10px;
-    border-radius: 8px;
-  }
-  
-  /* Styling for user details */
-  .profile-info p {
-    font-size: 1.2rem;
-    margin: 10px 0;
-  }
-  
+  display: flex;
+  background-color: #000; /* Background color matching Figma */
+  color: #fff;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 20%;
+  padding: 20px;
+  background-color: #111; /* Darker background for sidebar */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-right: 2px solid #333;
+  position: relative;
+}
+
+/* Arrow button for navigation */
+.arrow-button {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.arrow-button:hover {
+  transform: translateX(-5px); /* Slight move to the left on hover */
+}
+
+/* Username styling */
+.username {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff; /* White color for username */
+  margin-top: 60px;
+}
+
+/* Main profile information area */
+.profile-info {
+  width: 80%;
+  padding: 30px;
+  background-color: #222; /* Dark background for main content */
+  border-radius: 8px;
+}
+
+.profile-info p {
+  font-size: 1.2rem;
+  margin: 15px 0;
+  border-bottom: 1px solid #444;
+  padding-bottom: 10px;
+}
+
+/* Error and loading messages */
+.error-message,
+.loading-message {
+  font-size: 1.5rem;
+  color: #f00; /* Red for error messages */
+  text-align: center;
+  margin-top: 20px;
+}

@@ -1,0 +1,130 @@
+.profile-container {
+    display: flex;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+/* Sidebar styling */
+.sidebar {
+    width: 30%;
+    background-color: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-right: 2px solid #333;
+    padding: 20px;
+    position: relative;
+  }
+  
+  .arrow-button {
+    font-size: 2.5rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  
+  .arrow-button:hover {
+    transform: translateX(-5px);
+  }
+  
+  .sidebar-title {
+    font-size: 2rem;
+    font-family: "Comic Sans MS", cursive, sans-serif; /* Match word art font */
+    color: #fff;
+    font-style: italic; /* Italics */
+    margin-top: 80px; /* Adjust margin for spacing */
+    margin-left: 20px; /* Indent slightly */
+  }
+  
+  
+  
+  /* Right section */
+  .profile-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .profile-box {
+    background-color: #222;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  .profile-box h1 {
+    font-size: 2.8rem;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Lobster', cursive;
+  }
+  
+  .profile-box p {
+    font-size: 1.5rem;
+    margin: 15px 0;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+  }
+  
+  .editable-input {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .save-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .save-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+  
+  .cancel-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .cancel-button:hover {
+    background-color: #e53935;
+    transform: scale(1.05);
+  }
+  

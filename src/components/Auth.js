@@ -22,6 +22,8 @@ const Auth = () => {
       console.error("Authorization code missing in redirect");
       return;
     }
+    console.log("Authorization Code:", authCode);
+    console.log("Login Service URL:", login_service);
 
     // Define an async function to handle the fetch request
     const sendLoginRequest = async () => {
