@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
 import { jwtDecode } from 'jwt-decode';
 
-const login_service = process.env.REACT_APP_LOGIN_SERVICE;
+const login_service = process.env.REACT_APP_COMPOSITE_SERVICE + '/auth/login';
 
 const Auth = () => {
   const navigate = useNavigate();

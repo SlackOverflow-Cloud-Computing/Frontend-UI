@@ -7,7 +7,7 @@ import '../styles/Profile.css';
 // Consts for Spotify API
 const client_id = process.env.REACT_APP_CLIENT_ID;
 const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
-const scope = 'user-read-private user-read-email';
+const scope = 'user-read-private user-read-email playlist-modify-private';
 
 function generateRandomString(length) {
   let text = '';

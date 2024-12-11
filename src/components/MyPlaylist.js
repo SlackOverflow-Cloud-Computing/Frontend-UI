@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar'; // Import the Navbar component
 import '../styles/MyPlaylist.css';
 
+const composite_service = process.env.REACT_APP_COMPOSITE_SERVICE;
+
 const MyPlaylist = () => {
   const [songs, setSongs] = useState([]);
 
@@ -15,6 +17,33 @@ const MyPlaylist = () => {
     setSongs(updatedPlaylist);
     localStorage.setItem('playlist', JSON.stringify(updatedPlaylist));
     showAlert('Song removed from playlist!', 'success');
+  };
+
+  const handleCreatePlaylist = async () => {
+    const trackIds = songs.map((song) => song.track_id);
+    const userId = localStorage.getItem('user_id');
+    const endpoint = `${composite_service}/users/${userId}/playlists`;
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        },
+        body: JSON.stringify({
+          name: 'Subwoofer Playlist',
+          song_ids: trackIds,
+        }),
+      });
+
+      // Check if the response is not successful
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('Failed to create playlist:', error);
+    }
   };
 
   const showAlert = (message, type) => {
@@ -76,6 +105,12 @@ const MyPlaylist = () => {
             </tbody>
           </table>
         )}
+        <button
+          onClick={() => handleCreatePlaylist()}
+          className="remove-button"
+        >
+          Export Playlist to Spotify
+        </button>
       </div>
     </>
   );
