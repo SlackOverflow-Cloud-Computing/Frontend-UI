@@ -6,6 +6,7 @@ const chat_service = process.env.REACT_APP_CHAT_SERVICE;
 
 const Chatbot = ({setSongs, setTotalSongs}) => {
   const [messages, setMessages] = useState([]);
+  const [chatID, setChatID] = useState(null);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -35,7 +36,6 @@ const Chatbot = ({setSongs, setTotalSongs}) => {
 
     try {
       const userId = localStorage.getItem('user_id');
-      console.log("User ID:", userId);
       const response = await fetch(chat_service, {
         method: 'POST',
         headers: {
@@ -44,7 +44,7 @@ const Chatbot = ({setSongs, setTotalSongs}) => {
         },
         body: JSON.stringify({
           user_id: userId,
-          chat_id: null,
+          chat_id: chatID,
           query: inputMessage,
           token: localStorage.getItem('jwt'),
         }),
@@ -52,7 +52,6 @@ const Chatbot = ({setSongs, setTotalSongs}) => {
 
       if (!response.ok) throw new Error('Failed to get response');
 
-      console.log("Response:", response);
       const data = await response.json();
 
       // Add AI response
@@ -61,6 +60,10 @@ const Chatbot = ({setSongs, setTotalSongs}) => {
         content: data.content || "I'm sorry, I couldn't process that request.",
         timestamp: new Date().toLocaleTimeString(),
       };
+
+      if (data.chat_id) {
+        setChatID(data.chat_id);
+      }
 
       const songs = data.songs || [];
       setMessages((prev) => [...prev, aiMessage]);
