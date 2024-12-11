@@ -8,11 +8,7 @@ const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
 
-  // Retrieve user_id from localStorage
   const userId = localStorage.getItem('user_id');
-  console.log("Retrieved user ID from localStorage:", userId);
-
-  // Initialize the navigate hook
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,14 +19,11 @@ const Profile = () => {
 
     const fetchUserData = async () => {
       try {
-        console.log("Fetching user data for user ID:", userId);
-
-        // Make the fetch call to the user info endpoint
         const response = await fetch(`${composite_service}/users/${userId}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-          }
+          },
         });
 
         if (!response.ok) {
@@ -38,10 +31,8 @@ const Profile = () => {
         }
 
         const data = await response.json();
-        console.log("User data retrieved:", data);
         setUserData(data);
       } catch (error) {
-        console.error("Error fetching user data:", error);
         setError(error.message);
       }
     };
@@ -49,35 +40,37 @@ const Profile = () => {
     fetchUserData();
   }, [userId]);
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="error-message">Error: {error}</div>;
   }
 
   if (!userData) {
-    return <div>Loading user information...</div>;
+    return <div className="loading-message">Loading user information...</div>;
   }
 
   return (
     <div className="profile-container">
-      {/* Sidebar for navigation links */}
+      {/* Sidebar with arrow button */}
       <aside className="sidebar">
+        <button
+          className="arrow-button"
+          onClick={() => navigate('/')}
+        >
+          &#8592;
+        </button>
         <h1 className="username">{userData.username || "Username"}</h1>
-        <nav>
-          <ul>
-            <li>
-              {/* When clicked, navigate back to the main page */}
-              <a href="#" onClick={(e) => { e.preventDefault(); navigate('/'); }}>
-                Return
-              </a>
-            </li>
-          </ul>
-        </nav>
       </aside>
 
-      {/* Main content area for user information */}
+      {/* Main Profile Information */}
       <section className="profile-info">
         <p><strong>Email:</strong> {userData.email || "example@columbia.edu"}</p>
         <p><strong>Location:</strong> {userData.country || "Location"}</p>
+        <p><strong>Account Created:</strong> {formatDate(userData.created_at)}</p>
       </section>
     </div>
   );

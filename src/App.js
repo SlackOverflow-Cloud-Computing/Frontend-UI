@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import MainContent from './components/MainContent';
-import Profile from './components/Profile'; 
+import EditableProfile from './components/EditableProfile'; // Updated import
 import Auth from './components/Auth';
 import Songs from './components/Songs';
 import MyPlaylist from './components/MyPlaylist'; // Import My Playlist component
@@ -32,7 +32,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<EditableProfile />} /> {/* Updated Route */}
         <Route path="/auth" element={<Auth />} />
         <Route path="/songs" element={<SongsPage />} />
         <Route path="/my-playlist" element={<MyPlaylist />} />
