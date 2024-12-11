@@ -43,7 +43,7 @@ const MyPlaylist = () => {
                 <th>#</th>
                 <th>Title</th>
                 <th>Album</th>
-                <th>Date Added</th>
+                <th>Date Released</th>
                 <th>Remove</th>
               </tr>
             </thead>
