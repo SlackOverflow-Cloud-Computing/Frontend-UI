@@ -41,6 +41,9 @@ const MyPlaylist = () => {
       if (!response.ok) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
       }
+
+      showAlert('Playlist created successfully!', 'success');
+
     } catch (error) {
       console.error('Failed to create playlist:', error);
     }
@@ -107,7 +110,7 @@ const MyPlaylist = () => {
         )}
         <button
           onClick={() => handleCreatePlaylist()}
-          className="remove-button"
+          className="remove-button create-playlist"
         >
           Export Playlist to Spotify
         </button>
