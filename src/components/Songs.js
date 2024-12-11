@@ -19,6 +19,14 @@ const Songs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [songsPerPage] = useState(12);
   const [totalSongs, setTotalSongs] = useState(0);
+  const [addedSongs, setAddedSongs] = useState(new Set());
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check authentication status
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    setIsAuthenticated(!!jwt);
+  }, []);
 
   // Fetch songs from API
   useEffect(() => {
@@ -42,18 +50,40 @@ const Songs = () => {
   }, [currentPage, songsPerPage]);
 
   const handleAddToPlaylist = (song) => {
-    const existingPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
-  
-    // Check if the song is already in the playlist
-    if (existingPlaylist.some((s) => s.track_id === song.track_id)) {
-      showAlert('You already have this song in your playlist.', 'error');
+    if (!isAuthenticated) {
+      showAlert('Please sign in to manage playlists', 'error');
       return;
     }
-  
-    // Add the song to the playlist
-    const updatedPlaylist = [...existingPlaylist, song];
-    localStorage.setItem('playlist', JSON.stringify(updatedPlaylist));
-    showAlert('Song added to playlist!', 'success');
+
+    if (addedSongs.has(song.track_id)) {
+      // Remove from playlist
+      const existingPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
+      console.log(existingPlaylist);
+      const updatedPlaylist = existingPlaylist.filter(s => s.track_id !== song.track_id);
+      localStorage.setItem('playlist', JSON.stringify(updatedPlaylist));
+      
+      // Update UI state
+      const newAddedSongs = new Set(addedSongs);
+      newAddedSongs.delete(song.track_id);
+      setAddedSongs(newAddedSongs);
+      
+      showAlert('Song removed from playlist!', 'success');
+    } else {
+      // Add to playlist
+      const existingPlaylist = JSON.parse(localStorage.getItem('playlist')) || [];
+      console.log(existingPlaylist);
+      if (existingPlaylist.some((s) => s.track_id === song.track_id)) {
+        showAlert('Song is already in your playlist.', 'error');
+        return;
+      }
+      
+      const updatedPlaylist = [...existingPlaylist, song];
+      localStorage.setItem('playlist', JSON.stringify(updatedPlaylist));
+      
+      // Update UI state
+      setAddedSongs(new Set([...addedSongs, song.track_id]));
+      showAlert('Song added to playlist!', 'success');
+    }
   };
   
   // Alert function
@@ -80,13 +110,20 @@ const Songs = () => {
     }
   };
 
+  // Load added songs from localStorage on component mount
+  useEffect(() => {
+    const playlist = JSON.parse(localStorage.getItem('playlist')) || [];
+    const songIds = new Set(playlist.map(song => song.track_id));
+    setAddedSongs(songIds);
+  }, []);
+
   if (loading) return <div className="loading">Loading songs...</div>;
   if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="songs-page">
       <div className="chatbot-section">
-        <Chatbot />
+        <Chatbot setSongs={setSongs} setTotalSongs={setTotalSongs} />
       </div>
 
       <div className="songs-section">
@@ -95,12 +132,13 @@ const Songs = () => {
             <tr>
               <th>#</th>
               <th>Title</th>
+              <th>Artist</th>
               <th>Album</th>
               <th>Date Released</th>
               <th>BPM</th>
               <th>Danceability</th>
               <th>Length</th>
-              <th>Add</th>
+              {isAuthenticated ? <th>Add</th> : <th></th>}
             </tr>
           </thead>
           <tbody>
@@ -116,19 +154,22 @@ const Songs = () => {
                     {song.track_name}
                   </a>
                 </td>
+                <td>{song.track_artist}</td>
                 <td>{song.track_album_name}</td>
                 <td>{song.track_album_release_date}</td>
-                <td>{song.tempo}</td>
-                <td>{song.danceability}%</td>
+                <td>{Math.round(song.tempo)}</td>
+                <td>{Math.round(song.danceability*100)}%</td>
                 <td>{msToTime(song.duration_ms)}</td>
-                <td>
-                  <button
-                    onClick={() => handleAddToPlaylist(song)}
-                    className="add-button"
-                  >
-                    Add to Playlist
-                  </button>
-                </td>
+                {isAuthenticated && (
+                  <td>
+                    <button
+                      onClick={() => handleAddToPlaylist(song)}
+                      className={`toggle-button ${addedSongs.has(song.track_id) ? 'remove' : 'add'}`}
+                    >
+                      {addedSongs.has(song.track_id) ? 'Remove' : 'Add to Playlist'}
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
